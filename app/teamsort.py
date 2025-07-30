@@ -92,7 +92,7 @@ def sort_teams(goalkeepers, strikers, mids, cbs, top_n=5):
 
 
 
-players_list = get_players("players.txt")
+players_list = get_players("app/players.txt")
 goalkeepers,strikers,midfielders,centerbacks = distribute_postion(players_list)
 best_solution = sort_teams(goalkeepers,strikers,midfielders,centerbacks)
 for diff, t1, t2 in best_solution:
