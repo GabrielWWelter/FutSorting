@@ -1,6 +1,6 @@
 name score postions
-Campelo	8.50 ATA
-Tuti	6.37 GOL
+Campelo	8.50 GOL
+Butze	5.5 ZAG
 Tonhão	6.12 MEIO
 Thigas	6.43 ATA 
 Xuxa	6 ZAG
@@ -9,7 +9,7 @@ Welter	6.62 ZAG
 Nando	6.31 MEIO
 Nick	7.87 MEIO
 Benja	5.18 ATA
-Pepe	7.25 GOL
-Bomb	7.46 MEIO
+Fran    4.21 ATA
+Bob	7.58 MEIO
 Bona	6.30 ZAG
-Luzardo	7.90 ATA
+Luzardo	7.90 GOL

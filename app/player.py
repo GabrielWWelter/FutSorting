@@ -17,7 +17,20 @@ class player:
 class team:
     def __init__(self):
         self.players = []
+        self.sts = 0
+        self.mids = 0
+        self.cbs = 0
 
+    def calculate_pos(self):
+        
+        for p in self.players:
+            if p.position == "ATA":
+                self.sts+=1
+            elif p.position == "MEIO":
+                self.mids+=1
+            elif p.position == "ZAG":
+                self.cbs+=1
+        
     @property
     def score_sum(self):
         return sum(p.score for p in self.players)
@@ -37,7 +50,27 @@ class team:
         names = ", ".join(p.name for p in self.players)
         return f"Team(mean={self.mean:.2f}, players=[{names}])"
 
+class match:
+    
+    def __init__(self, team1:team,team2:team,delta_m:Decimal):
+        self.team1 = team1
+        self.team2 = team2
+        self.delta_m = Decimal(str(delta_m))
 
+    def can_match_happen(self):
+        if (self.team1.sts > self.team2.sts + 1) or (self.team1.sts + 1 < self.team2.sts):
+            if (self.team1.mids > self.team2.mids + 1) or (self.team1.mids + 1 < self.team2.mids):
+                if (self.team1.cbs > self.team2.cbs + 1) or (self.team1.cbs + 1 < self.team2.cbs):  
+                    if(self.delta_m < 0.3):
+                        return True
+                    else:
+                        return False
+                else:
+                    return False
+            else:
+                return False
+        else:
+            return False
 """
 
 t1 = team()
