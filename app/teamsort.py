@@ -54,7 +54,7 @@ def distribute_postion(players_list:list):
     return goalkeepers,strikers,midfielders,centerbacks
 
 
-def sort_teams(goalkeepers, strikers, mids, cbs, top_n=5):
+def sort_teams(goalkeepers, strikers, mids, cbs, top_n=20):
 
     if len(goalkeepers) < 2:
         raise ValueError("Precisam existir ao menos 2 goleiros.")
