@@ -1,7 +1,7 @@
 name score postions
 Luzardo 8.56    ATA
 Costa   6.05    ZAG
-Gordo    5.95    MEIO
+Tonhão    5.95    MEIO
 Campelo 8.65    ATA
 Benja   5.61    ATA
 Nick    8.11    MEIO
