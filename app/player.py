@@ -58,19 +58,11 @@ class match:
         self.delta_m = Decimal(str(delta_m))
 
     def can_match_happen(self):
-        if (self.team1.sts > self.team2.sts + 1) or (self.team1.sts + 1 < self.team2.sts):
-            if (self.team1.mids > self.team2.mids + 1) or (self.team1.mids + 1 < self.team2.mids):
-                if (self.team1.cbs > self.team2.cbs + 1) or (self.team1.cbs + 1 < self.team2.cbs):  
-                    if(self.delta_m < 0.3):
-                        return True
-                    else:
-                        return False
-                else:
-                    return False
-            else:
-                return False
+        if(self.delta_m <= 0.3):
+            return True
         else:
             return False
+                
 """
 
 t1 = team()
