@@ -73,7 +73,7 @@ def best_possible(gks, sts, mids, cbs):
     splits_mid = list(split_by_count(mids))
     splits_cb  = list(split_by_count(cbs))
     sort_teams(gks,splits_str,splits_mid,splits_cb,solution)
-    solution.sort(key=lambda m: m.delta_m)
+    solution.sort(key=lambda m: m.delta_std)#ainda ver o critério.
     return solution
 
  
@@ -85,10 +85,11 @@ def sort_teams(gks,splits_str,splits_mid,splits_cb,solution):
                 team1 = team(); team2 = team()
                 team1.add(gks[1],*t1st, *t1mid, *t1cb)
                 team2.add(gks[0],*t2st, *t2mid, *t2cb)
-                team1.calculate_pos()
+                team1.calculate_pos()  
                 team2.calculate_pos()
                 delta_m = abs(team1.mean - team2.mean)
-                current_match = match(team1,team2,delta_m)
+                delta_std = abs(team1.stdDevasion - team2.stdDevasion)
+                current_match = match(team1,team2,delta_m,delta_std)
                 if (current_match.can_match_happen()):
                     solution.append(current_match)
     
@@ -98,7 +99,10 @@ players_list = get_players("app/players.txt")
 goalkeepers,strikers,midfielders,centerbacks = distribute_postion(players_list)
 solution = best_possible(goalkeepers,strikers,midfielders,centerbacks)
 for matches in solution:
-    print(f"\nDiferença entre médias de times = {matches.delta_m}")
-    print("T1:", matches.team1)
-    print("T2:", matches.team2)
+    print(f"\nΔμ = {matches.delta_m:.5f}")
+    print(f"\nΔσ = {matches.delta_std:.5f}")
+    print("\nT1:", matches.team1)
+    print("\nT2:", matches.team2)
+ 
+
 
