@@ -1,14 +1,14 @@
 
 from pathlib import Path
 from typing import List
-from player import player 
-from player import team
-from player import match
+from player import Player 
+from player import Team
+from player import Match
 from itertools import combinations
 
-def get_players(file_path: str | Path, *, has_header: bool = True) -> List[player]:
+def get_players(file_path: str | Path, *, has_header: bool = True) -> List[Player]:
    
-    players: List[player] = []
+    players: List[Player] = []
 
     with open(file_path, encoding="utf-8") as f:
         lines = f.readlines()
@@ -25,7 +25,7 @@ def get_players(file_path: str | Path, *, has_header: bool = True) -> List[playe
 
         name, score_str, pos = parts
         try:
-            players.append(player(name, score_str, pos))
+            players.append(Player(name, score_str, pos))
         except Exception as e:
             print(f"  Erro na linha {n}: {e} -> {line.rstrip()}")
 
@@ -73,7 +73,7 @@ def best_possible(gks, sts, mids, cbs):
     splits_mid = list(split_by_count(mids))
     splits_cb  = list(split_by_count(cbs))
     sort_teams(gks,splits_str,splits_mid,splits_cb,solution)
-    solution.sort(key=lambda m: m.delta_std)#ainda ver o critério.
+    solution.sort(key=lambda m: m.delta_m)
     return solution
 
  
@@ -82,14 +82,14 @@ def sort_teams(gks,splits_str,splits_mid,splits_cb,solution):
     for(t1st,t2st) in splits_str:
         for(t1mid,t2mid) in splits_mid:
             for(t1cb,t2cb) in splits_cb:
-                team1 = team(); team2 = team()
+                team1 = Team(); team2 = Team()
                 team1.add(gks[1],*t1st, *t1mid, *t1cb)
                 team2.add(gks[0],*t2st, *t2mid, *t2cb)
                 team1.calculate_pos()  
                 team2.calculate_pos()
                 delta_m = abs(team1.mean - team2.mean)
                 delta_std = abs(team1.stdDevasion - team2.stdDevasion)
-                current_match = match(team1,team2,delta_m,delta_std)
+                current_match = Match(team1,team2,delta_m,delta_std)
                 if (current_match.can_match_happen()):
                     solution.append(current_match)
     
@@ -103,6 +103,3 @@ for matches in solution:
     print(f"\nΔσ = {matches.delta_std:.5f}")
     print("\nT1:", matches.team1)
     print("\nT2:", matches.team2)
- 
-
-

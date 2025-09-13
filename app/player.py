@@ -1,25 +1,23 @@
-from decimal import Decimal
-from collections import Counter
 import numpy as np;
 
 MEAN_LIMIT = 0.2
 STD_DEV_LIMIT = 1
 
 
-class player:
+class Player:
     
-    def __init__(self, name,score:Decimal,position):
+    def __init__(self, name,score:np.float64,position):
         self.name = name
-        self.score = Decimal(str(score))
+        self.score = np.float64(str(score))
         self.position = position
     
-    def editScore(self,new_score:Decimal):
+    def editScore(self,new_score:np.float64):
         self.score = new_score
     
     def editPosition(self,new_Position):
         self.position = new_Position
     
-class team:
+class Team:
     def __init__(self):
         self.players = []
         self.scores = []
@@ -53,7 +51,7 @@ class team:
     def stdDevasion(self):
         return np.std(self.scores)
 
-    def add(self, *players: player):
+    def add(self, *players: Player):
         for p in players:
             self.players.append(p)
             self.scores.append(p.score)
@@ -63,13 +61,13 @@ class team:
         names = ", ".join(p.name for p in self.players)
         return f"Team(μ={self.mean:.2f}, σ={self.stdDevasion:.2f},players=[{names}])"
 
-class match:
+class Match:
     
-    def __init__(self, team1:team,team2:team,delta_m:Decimal,delta_std:Decimal):
+    def __init__(self, team1:Team,team2:Team,delta_m:np.float64,delta_std:np.float64):
         self.team1 = team1
         self.team2 = team2
-        self.delta_m = Decimal(str(delta_m))
-        self.delta_std = Decimal(str(delta_std))
+        self.delta_m = np.float64(str(delta_m))
+        self.delta_std = np.float64(str(delta_std))
 
     def can_match_happen(self):
         if(self.delta_m <= MEAN_LIMIT and self.delta_std <= STD_DEV_LIMIT and (len(self.team1.players) == len(self.team2.players))):
