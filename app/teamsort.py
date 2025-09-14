@@ -24,7 +24,7 @@ def get_players(file_path: str | Path, *, has_header: bool = True) -> List[Playe
             continue
 
         name, score_str, pos = parts
-        try:
+        try:#fazer aqui o teste da posição.
             players.append(Player(name, score_str, pos))
         except Exception as e:
             print(f"  Erro na linha {n}: {e} -> {line.rstrip()}")
@@ -82,8 +82,6 @@ def sort_teams(gks,splits_str,splits_mid,splits_cb,solution):
                 team1 = Team(); team2 = Team()
                 team1.add(gks[1],*t1st, *t1mid, *t1cb)
                 team2.add(gks[0],*t2st, *t2mid, *t2cb)
-                team1.calculate_pos()  
-                team2.calculate_pos()
                 delta_m = abs(team1.mean - team2.mean)
                 delta_std = abs(team1.stdDevasion - team2.stdDevasion)
                 current_match = Match(team1,team2,delta_m,delta_std)
