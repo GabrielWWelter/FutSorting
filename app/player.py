@@ -1,7 +1,7 @@
 import numpy as np;
 
-MEAN_LIMIT = 0.2
-STD_DEV_LIMIT = 1
+MEAN_LIMIT = 0.1
+STD_DEV_LIMIT = 0.3
 
 
 class Player:
@@ -58,8 +58,9 @@ class Team:
         
 
     def __repr__(self):
-        names = ", ".join(p.name for p in self.players)
-        return f"Team(μ={self.mean:.2f}, σ={self.stdDevasion:.2f},players=[{names}])"
+        
+        names_scores = ", ".join(f"{p.name} {p.score:.2f}" for p in self.players)
+        return f"Team(μ={self.mean:.2f}, σ={self.stdDevasion:.2f},players=[{names_scores}])"
 
 class Match:
     
