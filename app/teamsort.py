@@ -47,10 +47,7 @@ def distribute_postion(players_list:list):
         elif p.position == "ZAG":
             centerbacks.append(p)
 
-    goalkeepers = sorted(goalkeepers, key=lambda p: p.score)
-    strikers = sorted(strikers, key=lambda p: p.score)
-    midfielders = sorted(midfielders, key=lambda p: p.score)
-    centerbacks = sorted(centerbacks, key=lambda p: p.score)
+    
     return goalkeepers,strikers,midfielders,centerbacks
 
 
