@@ -50,6 +50,14 @@ class Team:
     @property
     def stdDevasion(self):
         return np.std(self.scores)
+    
+    @property
+    def clear(self):
+        self.players.clear()
+        self.scores.clear()
+        self.sts = 0
+        self.mids = 0
+        self.cbs = 0
 
     def add(self, *players: Player):
         for p in players:
@@ -63,18 +71,19 @@ class Team:
         return f"Team(μ={self.mean:.2f}, σ={self.stdDevasion:.2f},players=[{names_scores}])"
 
 class Match:
-    
+    #tira esse estrutura de dados e coloca o can_match_happen pro teamsort
     def __init__(self, team1:Team,team2:Team,delta_m:np.float64,delta_std:np.float64):
         self.team1 = team1
         self.team2 = team2
-        self.delta_m = np.float64(str(delta_m))
-        self.delta_std = np.float64(str(delta_std))
+        self.delta_m = delta_m
+        self.delta_std = delta_std
 
     def can_match_happen(self):
         if(self.delta_m <= MEAN_LIMIT and self.delta_std <= STD_DEV_LIMIT and (len(self.team1.players) == len(self.team2.players))):
             return True
         else:
             return False
+        
                 
 """
 

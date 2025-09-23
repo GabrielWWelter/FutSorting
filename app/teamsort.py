@@ -5,6 +5,7 @@ from player import Player
 from player import Team
 from player import Match
 from itertools import combinations
+import os
 
 def get_players(file_path: str | Path, *, has_header: bool = True) -> List[Player]:
    
@@ -75,11 +76,12 @@ def best_possible(gks, sts, mids, cbs):
 
  
 def sort_teams(gks,splits_str,splits_mid,splits_cb,solution):
-    
+    team1 = Team(); team2 = Team()
     for(t1st,t2st) in splits_str:
         for(t1mid,t2mid) in splits_mid:
             for(t1cb,t2cb) in splits_cb:
-                team1 = Team(); team2 = Team()
+                team1.clear
+                team2.clear
                 team1.add(gks[1],*t1st, *t1mid, *t1cb)
                 team2.add(gks[0],*t2st, *t2mid, *t2cb)
                 delta_m = abs(team1.mean - team2.mean)
@@ -87,10 +89,12 @@ def sort_teams(gks,splits_str,splits_mid,splits_cb,solution):
                 current_match = Match(team1,team2,delta_m,delta_std)
                 if (current_match.can_match_happen()):
                     solution.append(current_match)
+                
     
 
-
-players_list = get_players("app/players.txt")
+base_dir = os.path.dirname(os.path.abspath(__file__))
+caminho = os.path.join(base_dir, "players.txt")
+players_list = get_players(caminho)
 goalkeepers,strikers,midfielders,centerbacks = distribute_postion(players_list)
 solution = best_possible(goalkeepers,strikers,midfielders,centerbacks)
 for matches in solution:
